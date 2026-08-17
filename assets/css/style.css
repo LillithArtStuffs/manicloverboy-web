@@ -1,0 +1,688 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Black&family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap');
+
+/* ============================================================
+   THEME — everything skin-related lives here.
+   To re-theme the whole site to match the game's real palette,
+   change these values and nothing else.
+   ============================================================ */
+:root {
+  /* Core palette */
+  --ink:        #07040b;   /* page background            */
+  --ink-2:      #0e0714;   /* raised panels              */
+  --ink-3:      #170d20;   /* borders / hairlines        */
+  --hot:        #ff2d6f;   /* primary accent (MANIC)     */
+  --cool:       #35f0e8;   /* secondary accent (LOVERBOY)*/
+  --bone:       #f6ecf3;   /* primary text               */
+  --muted:      #a691b8;   /* secondary text             */
+  --warn:       #ffd84d;   /* content-warning accent     */
+
+  /* Type */
+  --font-display: 'Archivo Black', 'Arial Black', Impact, sans-serif;
+  --font-body:    'Space Grotesk', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:    'Space Mono', ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+
+  /* Effects — set --scan-opacity and --grain-opacity to 0 for a flat, clean look */
+  --scan-opacity:  0.28;
+  --grain-opacity: 0.05;
+
+  /* Layout */
+  --measure: 1120px;
+  --gutter: clamp(1.25rem, 4vw, 3rem);
+  --radius: 2px;
+}
+
+/* ============================================================
+   RESET / BASE
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--ink);
+  color: var(--bone);
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 0.95rem + 0.2vw, 1.0625rem);
+  line-height: 1.65;
+  overflow-x: hidden;             /* the page never scrolls sideways */
+  -webkit-font-smoothing: antialiased;
+}
+
+img { max-width: 100%; display: block; }
+
+a { color: var(--cool); text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: var(--bone); }
+
+:focus-visible {
+  outline: 2px solid var(--cool);
+  outline-offset: 3px;
+}
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.skip-link {
+  position: absolute; left: 50%; top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 100;
+  background: var(--hot); color: var(--ink);
+  font-family: var(--font-mono); font-size: 0.8rem;
+  padding: 0.6rem 1rem; text-decoration: none;
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+/* ============================================================
+   CRT / SCANLINE OVERLAY
+   ============================================================ */
+.crt {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, var(--scan-opacity)) 0px,
+      rgba(0, 0, 0, var(--scan-opacity)) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: multiply;
+}
+
+/* Vignette + film grain, layered behind content */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 89;
+  pointer-events: none;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 88;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 40%, transparent 45%, rgba(0,0,0,0.55) 100%);
+}
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 80;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem 1.5rem;
+  padding: 0.85rem var(--gutter);
+  background: rgba(7, 4, 11, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--ink-3);
+}
+
+.topbar__mark {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  color: var(--bone);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.topbar__mark-a { color: var(--bone); }
+.topbar__mark-b { color: var(--bone); }
+.topbar__slash { color: var(--hot); }
+
+.topbar__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.topbar__nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.topbar__nav a:hover { color: var(--bone); }
+
+.topbar__cta {
+  color: var(--ink) !important;
+  background: var(--hot);
+  padding: 0.4rem 0.85rem;
+  font-weight: 700;
+}
+.topbar__cta:hover { background: var(--bone); }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero {
+  position: relative;
+  padding: clamp(3.5rem, 12vh, 8rem) var(--gutter) 0;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(255, 45, 111, 0.16), transparent 45%),
+    radial-gradient(circle at 85% 30%, rgba(53, 240, 232, 0.10), transparent 45%);
+}
+
+.hero__inner {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding-bottom: clamp(3rem, 9vh, 6rem);
+}
+
+.hero__eyebrow {
+  margin: 0 0 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+}
+
+.hero__title {
+  margin: 0;
+  font-family: var(--font-display);
+  /* Scales from phone to desktop without ever overflowing */
+  font-size: clamp(2.1rem, 9vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  /* Prefer the <wbr> break at the slash; only chop mid-word as a last resort. */
+  word-break: normal;
+  overflow-wrap: break-word;
+}
+
+.glitch__slash { color: var(--hot); }
+
+.hero__status {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin: 1.75rem 0 0;
+}
+
+.pill {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.35rem 0.7rem;
+  border: 1px solid var(--ink-3);
+  color: var(--muted);
+}
+.pill--live {
+  border-color: var(--hot);
+  color: var(--hot);
+}
+
+.hero__tag {
+  max-width: 48ch;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.05rem, 1rem + 0.5vw, 1.35rem);
+  color: var(--bone);
+}
+
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 2.25rem;
+}
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+}
+
+.btn--primary {
+  background: var(--hot);
+  color: var(--ink);
+  box-shadow: 5px 5px 0 rgba(53, 240, 232, 0.85);
+}
+.btn--primary:hover,
+.btn--primary:focus-visible {
+  color: var(--ink);
+  transform: translate(2px, 2px);
+  box-shadow: 3px 3px 0 rgba(53, 240, 232, 0.85);
+}
+
+.btn--ghost {
+  background: transparent;
+  color: var(--bone);
+  border-color: var(--ink-3);
+}
+.btn--ghost:hover,
+.btn--ghost:focus-visible {
+  color: var(--ink);
+  background: var(--bone);
+  border-color: var(--bone);
+}
+
+.btn__glyph { font-size: 0.9em; }
+
+/* ============================================================
+   TICKER
+   ============================================================ */
+.ticker {
+  overflow: hidden;
+  border-top: 1px solid var(--ink-3);
+  border-bottom: 1px solid var(--ink-3);
+  background: var(--ink-2);
+  padding: 0.7rem 0;
+  /* full-bleed regardless of the hero's side padding */
+  margin: 0 calc(var(--gutter) * -1);
+}
+
+.ticker__track {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: max-content;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: var(--muted);
+  white-space: nowrap;
+  animation: ticker-scroll 28s linear infinite;
+}
+.ticker__dot { color: var(--hot); }
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }   /* content is duplicated once, so -50% loops seamlessly */
+}
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(3.5rem, 10vh, 6.5rem) var(--gutter);
+  border-top: 1px solid var(--ink-3);
+}
+.section:first-of-type { border-top: 0; }
+
+.section__title {
+  margin: 0 0 2rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 1.2rem + 1.8vw, 2.5rem);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+}
+.section__slash { color: var(--hot); }
+
+.section__note {
+  margin: -1.25rem 0 2rem;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+.section__note code {
+  color: var(--cool);
+  background: var(--ink-2);
+  padding: 0.15rem 0.35rem;
+  word-break: break-all;
+}
+
+/* ---------- About ---------- */
+.about {
+  display: grid;
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .about { grid-template-columns: 1fr; }
+}
+
+.about__body p { margin: 0 0 1.1rem; max-width: 62ch; }
+.about__body p:last-child { margin-bottom: 0; }
+
+.lede {
+  font-size: clamp(1.15rem, 1.05rem + 0.6vw, 1.5rem);
+  line-height: 1.45;
+  color: var(--bone);
+}
+
+.specs {
+  margin: 0;
+  border: 1px solid var(--ink-3);
+  background: var(--ink-2);
+}
+.specs__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  padding: 0.85rem 1.1rem;
+  border-bottom: 1px solid var(--ink-3);
+}
+.specs__row:last-child { border-bottom: 0; }
+
+.specs dt {
+  flex: 0 0 5.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  padding-top: 0.15rem;
+}
+.specs dd {
+  flex: 1 1 8rem;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* ---------- Screenshots ---------- */
+.shots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  gap: 1rem;
+}
+
+.shot {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border: 1px solid var(--ink-3);
+  background: var(--ink-2);
+  overflow: hidden;
+}
+
+.shot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  cursor: zoom-in;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.shot img:hover { transform: scale(1.03); filter: saturate(1.15); }
+
+/* Applied by main.js when the image file isn't there yet */
+.shot--empty img { display: none; }
+.shot--empty::after {
+  content: "SHOT " attr(data-slot);
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  color: rgba(166, 145, 184, 0.45);
+  background:
+    repeating-linear-gradient(
+      45deg,
+      transparent 0 10px,
+      rgba(255, 45, 111, 0.05) 10px 20px
+    );
+}
+
+/* ---------- Content warnings ---------- */
+.warn {
+  border: 1px solid var(--warn);
+  border-left-width: 4px;
+  background: rgba(255, 216, 77, 0.05);
+  padding: clamp(1.25rem, 3vw, 2rem);
+}
+.warn p { margin: 0 0 0.9rem; max-width: 66ch; }
+.warn p:last-child { margin-bottom: 0; }
+
+.warn__head {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  color: var(--warn);
+}
+.warn__meta {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+
+/* ---------- Cards ---------- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 1rem;
+}
+
+.card {
+  display: grid;
+  gap: 0.5rem;
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 1.85rem);
+  background: var(--ink-2);
+  border: 1px solid var(--ink-3);
+  text-decoration: none;
+  color: var(--bone);
+  transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease;
+}
+.card:hover {
+  color: var(--bone);
+  border-color: var(--hot);
+  transform: translateY(-3px);
+}
+
+.card__kicker {
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.16em;
+  color: var(--hot);
+}
+.card__title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.1;
+}
+.card__body {
+  font-size: 0.95rem;
+  color: var(--muted);
+  max-width: 40ch;
+}
+.card__go {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  color: var(--muted);
+}
+.card:hover .card__go { color: var(--hot); }
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vh, 4rem) var(--gutter);
+  border-top: 1px solid var(--ink-3);
+  text-align: center;
+}
+
+.footer__mark {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1rem + 1.5vw, 2rem);
+  letter-spacing: 0.02em;
+}
+.footer__meta {
+  margin: 0 0 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.footer__links {
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-3);
+}
+
+/* ============================================================
+   LIGHTBOX
+   ============================================================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  padding: var(--gutter);
+  background: rgba(7, 4, 11, 0.94);
+  backdrop-filter: blur(4px);
+}
+.lightbox[hidden] { display: none; }
+
+.lightbox__img {
+  max-width: 100%;
+  max-height: 85vh;
+  width: auto;
+  border: 1px solid var(--ink-3);
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  font-size: 1.75rem;
+  line-height: 1;
+  color: var(--bone);
+  background: transparent;
+  border: 1px solid var(--ink-3);
+  cursor: pointer;
+}
+.lightbox__close:hover { color: var(--ink); background: var(--hot); border-color: var(--hot); }
+
+/* ============================================================
+   GLITCH TITLE
+   Two offset colour copies clipped to shifting horizontal slices.
+   ============================================================ */
+.glitch {
+  position: relative;
+  display: inline-block;
+}
+.glitch::before,
+.glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* clip-path is animated, so these must not affect layout */
+  overflow: hidden;
+}
+.glitch::before {
+  color: var(--hot);
+  transform: translate(-3px, 0);
+  animation: glitch-a 3.4s steps(2, end) infinite;
+}
+.glitch::after {
+  color: var(--cool);
+  transform: translate(3px, 0);
+  animation: glitch-b 2.7s steps(2, end) infinite;
+}
+
+@keyframes glitch-a {
+  0%, 92%, 100% { clip-path: inset(100% 0 0 0); }   /* hidden most of the time */
+  93%           { clip-path: inset(18% 0 62% 0); }
+  95%           { clip-path: inset(58% 0 24% 0); }
+  97%           { clip-path: inset(34% 0 48% 0); }
+}
+@keyframes glitch-b {
+  0%, 90%, 100% { clip-path: inset(100% 0 0 0); }
+  91%           { clip-path: inset(70% 0 12% 0); }
+  94%           { clip-path: inset(26% 0 60% 0); }
+  96%           { clip-path: inset(46% 0 38% 0); }
+}
+
+/* ============================================================
+   NARROW SCREENS
+   ============================================================ */
+@media (max-width: 700px) {
+  /* The ::before/::after copies come from data-text, which has no <wbr>, so a
+     wrapped title would leave them misaligned. Drop the effect instead. */
+  .glitch::before,
+  .glitch::after { display: none; }
+}
+
+@media (max-width: 640px) {
+  /* Keep the sticky bar to a single row: mark + download, nothing else.
+     The same links are all reachable by scrolling. */
+  .topbar { flex-wrap: nowrap; }
+  .topbar__nav a:not(.topbar__cta) { display: none; }
+}
+
+/* ============================================================
+   MOTION / ACCESSIBILITY
+   Kill every looping animation for users who ask for it.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  .glitch::before,
+  .glitch::after { display: none; }
+
+  .ticker__track { animation: none; }
+
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* Respect the OS "reduce transparency"/high-contrast leaning: drop the CRT haze */
+@media (prefers-contrast: more) {
+  :root { --scan-opacity: 0; --grain-opacity: 0; --muted: #cbb8d8; }
+}
+
+/* Printing a game landing page is unlikely, but make it not a black brick */
+@media print {
+  .crt, .ticker, .topbar, .lightbox { display: none !important; }
+  body { background: #fff; color: #000; }
+  body::before, body::after { display: none; }
+}

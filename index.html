@@ -1,15 +1,193 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Website being build</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MANIC/LOVERBOY — out now in early alpha</title>
+
+<meta name="description" content="MANIC/LOVERBOY — an indie game by Lillith Art Stuffs, out now in early alpha. Free download on itch.io.">
+<meta name="theme-color" content="#07040b">
+
+<!-- Social preview. Drop a 1200x630 image at assets/img/social-card.png to enable. -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MANIC/LOVERBOY">
+<meta property="og:description" content="Out now in early alpha. Free download on itch.io.">
+<meta property="og:image" content="assets/img/social-card.png">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%2307040b'/%3E%3Cpath d='M20 6 L12 26' stroke='%23ff2d6f' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
-    <h1>Website under construction</h1>
-    <p>Pardon our dust! This website doesnt host anything...yet :D</p>
-    <p> Refer to https://lillithartstuffs.itch.io/manicloverboy for downloads and our Discord, linked below.</p>
-    <p> https://discord.gg/mgnAJp67S7 </p>
+<!-- Full-screen CRT/scanline overlay. Purely decorative. -->
+<div class="crt" aria-hidden="true"></div>
 
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="topbar">
+  <a class="topbar__mark" href="#top">
+    <span class="topbar__mark-a">MANIC</span><span class="topbar__slash">/</span><span class="topbar__mark-b">LOVERBOY</span>
+  </a>
+  <nav class="topbar__nav" aria-label="Primary">
+    <a href="#about">About</a>
+    <a href="#shots">Screens</a>
+    <a href="#warnings">Warnings</a>
+    <a href="#community">Community</a>
+    <a class="topbar__cta" href="https://lillithartstuffs.itch.io/manicloverboy">Download</a>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- ============================================ HERO -->
+  <section class="hero" id="top">
+    <div class="hero__inner">
+      <p class="hero__eyebrow">Lillith Art Stuffs presents</p>
+
+      <h1 class="hero__title glitch" data-text="MANIC/LOVERBOY">
+        <span class="sr-only">MANIC/LOVERBOY</span>
+        <!-- <wbr> gives the browser a clean break point at the slash on narrow screens,
+             so the title never splits mid-word. -->
+        <span aria-hidden="true">MANIC<span class="glitch__slash">/</span><wbr>LOVERBOY</span>
+      </h1>
+
+      <p class="hero__status">
+        <span class="pill pill--live">Early alpha</span>
+        <span class="pill">Free download</span>
+      </p>
+
+      <!-- PLACEHOLDER: replace with the game's real tagline. -->
+      <p class="hero__tag">The alpha is out. It's free. It's rough around the edges, and that's the point.</p>
+
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="https://lillithartstuffs.itch.io/manicloverboy">
+          Download on itch.io
+          <span class="btn__glyph" aria-hidden="true">&#8599;</span>
+        </a>
+        <a class="btn btn--ghost" href="https://discord.gg/mgnAJp67S7">
+          Join the Discord
+          <span class="btn__glyph" aria-hidden="true">&#8599;</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker__track">
+        <span>EARLY ALPHA</span><span class="ticker__dot">&#9670;</span>
+        <span>FREE ON ITCH.IO</span><span class="ticker__dot">&#9670;</span>
+        <span>IN DEVELOPMENT</span><span class="ticker__dot">&#9670;</span>
+        <span>MANIC/LOVERBOY</span><span class="ticker__dot">&#9670;</span>
+        <span>EARLY ALPHA</span><span class="ticker__dot">&#9670;</span>
+        <span>FREE ON ITCH.IO</span><span class="ticker__dot">&#9670;</span>
+        <span>IN DEVELOPMENT</span><span class="ticker__dot">&#9670;</span>
+        <span>MANIC/LOVERBOY</span><span class="ticker__dot">&#9670;</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================ ABOUT -->
+  <section class="section" id="about">
+    <h2 class="section__title"><span class="section__slash">//</span> About</h2>
+
+    <div class="about">
+      <div class="about__body">
+        <!-- PLACEHOLDER COPY: swap for the real synopsis from the itch page. -->
+        <p class="lede">MANIC/LOVERBOY is in early alpha and available to download now.</p>
+        <p>This is a work in progress. Builds go up as they're ready, feedback goes straight into the next one, and the Discord is where most of that conversation happens.</p>
+        <p>If you play it, tell us what broke.</p>
+      </div>
+
+      <dl class="specs">
+        <div class="specs__row">
+          <dt>Status</dt>
+          <dd>Early alpha, in active development</dd>
+        </div>
+        <div class="specs__row">
+          <dt>Price</dt>
+          <dd>Free</dd>
+        </div>
+        <div class="specs__row">
+          <dt>Where</dt>
+          <dd><a href="https://lillithartstuffs.itch.io/manicloverboy">itch.io</a></dd>
+        </div>
+        <div class="specs__row">
+          <dt>By</dt>
+          <dd>Lillith Art Stuffs</dd>
+        </div>
+      </dl>
+    </div>
+  </section>
+
+  <!-- ============================================ SCREENSHOTS -->
+  <section class="section" id="shots">
+    <h2 class="section__title"><span class="section__slash">//</span> Screens</h2>
+    <p class="section__note">
+      Drop images at <code>assets/img/shot-01.png</code> &hellip; <code>shot-06.png</code> and they appear here automatically.
+    </p>
+
+    <ul class="shots">
+      <li class="shot"><img src="assets/img/shot-01.png" alt="MANIC/LOVERBOY screenshot 1" loading="lazy" data-slot="01"></li>
+      <li class="shot"><img src="assets/img/shot-02.png" alt="MANIC/LOVERBOY screenshot 2" loading="lazy" data-slot="02"></li>
+      <li class="shot"><img src="assets/img/shot-03.png" alt="MANIC/LOVERBOY screenshot 3" loading="lazy" data-slot="03"></li>
+      <li class="shot"><img src="assets/img/shot-04.png" alt="MANIC/LOVERBOY screenshot 4" loading="lazy" data-slot="04"></li>
+      <li class="shot"><img src="assets/img/shot-05.png" alt="MANIC/LOVERBOY screenshot 5" loading="lazy" data-slot="05"></li>
+      <li class="shot"><img src="assets/img/shot-06.png" alt="MANIC/LOVERBOY screenshot 6" loading="lazy" data-slot="06"></li>
+    </ul>
+  </section>
+
+  <!-- ============================================ CONTENT WARNINGS -->
+  <section class="section" id="warnings">
+    <h2 class="section__title"><span class="section__slash">//</span> Before you play</h2>
+
+    <div class="warn">
+      <p class="warn__head"><span aria-hidden="true">&#9888;</span> Content warnings</p>
+      <!-- PLACEHOLDER: replace this list with the game's actual content warnings.
+           Delete the whole <section id="warnings"> block if the game doesn't need one. -->
+      <p>Fill this in with the game's real content warnings before launch, so players can make an informed call.</p>
+      <p class="warn__meta">This is an alpha build: expect bugs, placeholder art, and unfinished sequences.</p>
+    </div>
+  </section>
+
+  <!-- ============================================ COMMUNITY -->
+  <section class="section section--split" id="community">
+    <h2 class="section__title"><span class="section__slash">//</span> Community</h2>
+
+    <div class="cards">
+      <a class="card" href="https://lillithartstuffs.itch.io/manicloverboy">
+        <span class="card__kicker">Download</span>
+        <span class="card__title">itch.io</span>
+        <span class="card__body">Grab the current alpha build, free. Devlogs and version notes land here too.</span>
+        <span class="card__go" aria-hidden="true">&#8599;</span>
+      </a>
+
+      <a class="card" href="https://discord.gg/mgnAJp67S7">
+        <span class="card__kicker">Talk to us</span>
+        <span class="card__title">Discord</span>
+        <span class="card__body">Bug reports, feedback, and build announcements. The fastest way to reach the team.</span>
+        <span class="card__go" aria-hidden="true">&#8599;</span>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p class="footer__mark">MANIC<span class="topbar__slash">/</span>LOVERBOY</p>
+  <p class="footer__meta">&copy; <span id="year">2026</span> Lillith Art Stuffs. Early alpha &mdash; everything here is subject to change.</p>
+  <p class="footer__links">
+    <a href="https://lillithartstuffs.itch.io/manicloverboy">itch.io</a>
+    <span aria-hidden="true">&#9670;</span>
+    <a href="https://discord.gg/mgnAJp67S7">Discord</a>
+  </p>
+</footer>
+
+<!-- Lightbox for screenshots -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Screenshot viewer" hidden>
+  <button class="lightbox__close" type="button" aria-label="Close screenshot viewer">&times;</button>
+  <img class="lightbox__img" id="lightbox-img" src="" alt="">
+</div>
+
+<script src="assets/js/main.js"></script>
 </body>
 </html>
