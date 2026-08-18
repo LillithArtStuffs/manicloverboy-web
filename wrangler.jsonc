@@ -1,0 +1,16 @@
+{
+  // Cloudflare Workers config for the MANIC/LOVERBOY site.
+  //
+  // Static site, no server-side code, so this deploys as a Workers Static
+  // Assets project with no Worker script. Without this file `wrangler deploy`
+  // has no entry point and the build fails.
+  //
+  // "name" must match the existing Worker in the Cloudflare dashboard.
+  "name": "manicloverboy-web",
+  "compatibility_date": "2026-08-18",
+  "assets": {
+    // Only public/ is published. Pointing this at the repo root would upload
+    // the whole .git directory as public static files.
+    "directory": "./public"
+  }
+}

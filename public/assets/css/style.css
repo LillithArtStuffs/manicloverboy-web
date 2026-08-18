@@ -1,0 +1,323 @@
+/* ============================================================
+   MANIC/LOVERBOY site styles
+
+   Every value here is read out of the v0.2-2026.8.14 build, not
+   invented. Colour constants come from zz_speakers.rpy,
+   zz_memory.rpy and zz_ui.rpy; the layout of the title section
+   is the game's own main_menu screen; the type is the same
+   DejaVu Sans Mono the game ships.
+   ============================================================ */
+
+@font-face {
+  font-family: "scene-mono";
+  src: url("../fonts/mono.ttf") format("truetype");
+  font-weight: normal; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "scene-mono";
+  src: url("../fonts/mono_bold.ttf") format("truetype");
+  font-weight: bold; font-style: normal; font-display: swap;
+}
+@font-face {
+  font-family: "scene-mono";
+  src: url("../fonts/mono_oblique.ttf") format("truetype");
+  font-weight: normal; font-style: italic; font-display: swap;
+}
+
+:root {
+  /* --- zz_ui.rpy --- */
+  --ui-bg:    #08070a;   /* C_UI_BG                       */
+  --ui-deep:  #050409;   /* C_UI_DEEP                     */
+  --ui-line:  #1f1c24;   /* C_UI_LINE  hairlines          */
+  --ui-off:   #33313a;   /* C_UI_OFF   dim / subtitle     */
+  --ui-fill:  #26232c;   /* C_UI_FILL                     */
+
+  /* --- zz_speakers.rpy --- */
+  --narr:     #6b6862;   /* C_NARR   dead gray, narration */
+  --inner:    #8a8580;   /* C_INNER  your head            */
+  --bone:     #d6d0c8;   /* C_HIDE   bone                 */
+  --you:      #9aa8b0;   /* C_YOU    cold, drained        */
+  --blood:    #c0141a;   /* C_BLOOD  only for the bad lines */
+
+  --measure: 1000px;
+  --gutter: clamp(1.5rem, 6vw, 4rem);
+
+  /* The menu rule sits at x=120 of 1920 in game; kept proportional
+     but clamped so it never crowds the text on a phone. */
+  --rule-x: clamp(1rem, 6.25vw, 7.5rem);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--ui-bg);
+  color: var(--narr);
+  font-family: "scene-mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 16px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+img { max-width: 100%; display: block; }
+a { color: var(--bone); }
+
+:focus-visible { outline: 1px solid var(--blood); outline-offset: 4px; }
+
+.sl { color: var(--blood); }
+
+.skip-link {
+  position: absolute; left: 50%; top: 0;
+  transform: translate(-50%, -120%);
+  z-index: 100;
+  background: var(--blood); color: #fff;
+  font-size: 0.8rem; letter-spacing: 2px;
+  padding: 0.6rem 1rem; text-decoration: none;
+}
+.skip-link:focus { transform: translate(-50%, 0); }
+
+/* ============================================================
+   TITLE: the main_menu screen
+   ============================================================ */
+.menu {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(3rem, 8vh, 6rem) var(--gutter) clamp(4rem, 10vh, 7rem);
+}
+
+.vignette {
+  position: absolute; inset: 0;
+  background: url("../img/vignette_red.png") center / cover no-repeat;
+  opacity: 0.12;
+  pointer-events: none;
+}
+
+/* "a single wound of colour down the left margin", 3px in game */
+.menu__rule {
+  position: absolute;
+  left: var(--rule-x);
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: min(60vh, 34rem);
+  background: var(--blood);
+}
+
+.menu__inner {
+  position: relative;
+  /* the title sits just right of the rule, as at xpos 168 vs rule 120 */
+  padding-left: calc(var(--rule-x) + 2.5rem);
+  max-width: 100%;
+}
+
+.menu__title {
+  margin: 0;
+  font-weight: bold;
+  /* game: size 68 with kerning 10 on a 1920 stage */
+  font-size: clamp(1.5rem, 6vw, 4.25rem);
+  letter-spacing: 0.14em;
+  line-height: 1.15;
+  color: var(--bone);
+  text-shadow: 0 0 3px #000;
+  word-break: normal;
+  overflow-wrap: break-word;
+  /* mm_breathe: alpha 0.85 -> 1.0 -> 0.82, 3.5s each way */
+  animation: breathe 7s ease-in-out infinite;
+}
+@keyframes breathe {
+  0%   { opacity: 0.85; }
+  50%  { opacity: 1; }
+  100% { opacity: 0.82; }
+}
+
+.menu__sub {
+  margin: 0.75rem 0 0;
+  font-style: italic;
+  font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+  letter-spacing: 0.16em;
+  color: var(--ui-off);
+}
+
+/* the lowercase button column; hover_xoffset 12 in game */
+.menu__nav {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  margin-top: clamp(2.5rem, 7vh, 4.5rem);
+}
+.mm {
+  font-size: clamp(1rem, 2.4vw, 1.35rem);
+  letter-spacing: 0.09em;
+  color: var(--narr);
+  text-decoration: none;
+  text-shadow: 0 0 2px #000;
+  padding: 0.15rem 0;
+  transition: transform 140ms ease-out, color 140ms linear;
+}
+.mm:hover, .mm:focus-visible {
+  color: var(--bone);
+  transform: translateX(12px);
+}
+
+/* bottom-right, as in game (xalign 1.0 / yalign 1.0) */
+.menu__version {
+  position: absolute;
+  right: var(--gutter);
+  bottom: clamp(1.25rem, 4vh, 2.5rem);
+  margin: 0;
+  text-align: right;
+  font-size: 0.7rem;
+  letter-spacing: 0.14em;
+  color: var(--ui-off);
+}
+
+/* ============================================================
+   CONTENT WARNING: the cw_notice screen
+   ============================================================ */
+.cw {
+  padding: clamp(3rem, 9vh, 5rem) var(--gutter);
+  text-align: center;
+  background: var(--ui-bg);
+  border-top: 1px solid var(--ui-line);
+  border-bottom: 1px solid var(--ui-line);
+}
+.cw__head {
+  margin: 0;
+  font-weight: bold;
+  font-size: clamp(1rem, 3.2vw, 1.5rem);
+  /* ui_head: kerning 4.0 at size 30, colour C_HIDE */
+  letter-spacing: 0.14em;
+  text-indent: 0.14em;
+  color: var(--bone);
+  text-shadow: 0 0 2px #000;
+}
+.cw__body {
+  margin: 1rem 0 0;
+  font-size: clamp(0.85rem, 2.4vw, 1.1rem);
+  color: var(--narr);
+}
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section {
+  max-width: var(--measure);
+  margin: 0 auto;
+  padding: clamp(2.5rem, 7vh, 4rem) var(--gutter);
+}
+
+/* gm_title is C_BLOOD, kerning 8; section heads borrow it */
+.h {
+  margin: 0 0 1.5rem;
+  font-weight: bold;
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  letter-spacing: 0.28em;
+  text-indent: 0.28em;
+  color: var(--blood);
+  text-shadow: 0 0 2px #000;
+}
+
+.section p { margin: 0 0 1.1rem; max-width: 62ch; color: var(--inner); }
+.lede {
+  font-size: clamp(1.05rem, 1rem + 0.7vw, 1.35rem);
+  line-height: 1.5;
+  color: var(--bone);
+}
+
+/* ---------- screens ---------- */
+.shots {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+  gap: 1px;
+  background: var(--ui-line);
+  border: 1px solid var(--ui-line);
+}
+.shots li { background: var(--ui-bg); }
+.shots img {
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+  transition: opacity 160ms linear;
+}
+.shots img:hover { opacity: 1; }
+
+.meta {
+  margin: 1.5rem 0 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.1em;
+  color: var(--narr);
+  max-width: none;
+}
+
+/* ---------- play ---------- */
+.links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+  gap: 1rem;
+}
+.link {
+  display: block;
+  padding: 1.5rem;
+  background: var(--ui-deep);
+  border: 1px solid var(--ui-line);
+  text-decoration: none;
+  transition: border-color 140ms linear, transform 140ms ease-out;
+}
+.link:hover { border-color: var(--blood); transform: translateX(6px); }
+.link__k {
+  display: block;
+  font-size: 1rem; font-weight: bold; letter-spacing: 0.18em;
+  color: var(--bone);
+}
+.link__d {
+  display: block; margin-top: 0.5rem;
+  font-size: 0.82rem; color: var(--narr); max-width: 34ch;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  padding: clamp(2rem, 5vh, 2.75rem) var(--gutter);
+  border-top: 1px solid var(--ui-line);
+  text-align: center;
+  background: var(--ui-deep);
+}
+.footer__meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.68rem; letter-spacing: 0.1em;
+  color: var(--narr);
+}
+
+/* ============================================================
+   MOTION / CONTRAST
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .menu__title { animation: none; opacity: 1; }
+  .mm:hover, .mm:focus-visible { transform: none; }
+  .link:hover { transform: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+@media (prefers-contrast: more) {
+  :root { --ui-off: #9d99a5; --narr: #a5a29c; }
+  .vignette { opacity: 0; }
+}
+
+@media print {
+  .vignette { display: none; }
+  body { background: #fff; color: #000; }
+}
