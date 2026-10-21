@@ -1,0 +1,10 @@
+{
+  // manicloverboy.com: lillith's portfolio. what it shows is edited in the 3STARSWIRL panel (owner only),
+  // which writes KV "portfolio" + "pfimg:<key>" in the shared namespace. this worker only ever reads them.
+  "name": "manicloverboy-web",
+  "main": "src/worker.js",
+  "compatibility_date": "2026-08-01",
+  "kv_namespaces": [{ "binding": "PEOPLE", "id": "599511f4b0b84e0087f5e375f7b149f5" }],
+  "routes": [{ "pattern": "manicloverboy.com", "custom_domain": true }],
+  "observability": { "enabled": true }
+}
