@@ -113,6 +113,11 @@ const notFound = () => new Response(`<!doctype html><meta charset="utf-8"><meta 
 export default {
   async fetch(req, env) {
     const u = new URL(req.url);
+    if (env.OFFLINE !== "0") {   // taken down: everything is the 404 room (its font lives at /a/)
+      if (u.pathname.startsWith("/a/")) return env.ASSETS.fetch(req);
+      const r = await env.ASSETS.fetch(new Request(new URL("/404.html", req.url)));
+      return new Response(req.method === "HEAD" ? null : r.body, { status: 404, headers: { "content-type": "text/html; charset=utf-8", "x-robots-tag": "noindex", "cache-control": "no-store", "x-content-type-options": "nosniff" } });
+    }
     if (u.hostname.startsWith("www.")) return Response.redirect("https://" + u.hostname.slice(4) + u.pathname + u.search, 301);
     if (req.method !== "GET" && req.method !== "HEAD") return new Response("", { status: 405, headers: { allow: "GET, HEAD" } });
     const p = u.pathname;

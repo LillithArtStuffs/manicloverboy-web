@@ -5,6 +5,10 @@
   "main": "src/worker.js",
   "compatibility_date": "2026-08-01",
   "kv_namespaces": [{ "binding": "PEOPLE", "id": "599511f4b0b84e0087f5e375f7b149f5" }],
+  // offline for now: every page is 3STARSWIRL's 404 (a copy of 3STARSWIRL-web's public/404.html + its font).
+  // set OFFLINE to "0" to bring the portfolio back.
+  "vars": { "OFFLINE": "1" },
+  "assets": { "directory": "./public", "binding": "ASSETS", "run_worker_first": true, "not_found_handling": "404-page" },
   "routes": [{ "pattern": "manicloverboy.com", "custom_domain": true }],
   "observability": { "enabled": true }
 }
